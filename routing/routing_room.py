@@ -2,7 +2,7 @@ from fastapi import APIRouter, Body, HTTPException
 from config import database
 
 router = APIRouter(prefix="/room", tags=["room"])
-collection = datebase.client["exceed06"]["smart_home"]
+collection = database.client["exceed06"]["smart_home"]
 
 
 @router.post("/manual/turn_on/{id}")
@@ -39,3 +39,4 @@ def get_all_bulbs_info():
             "mode": result[i['mode']],
         }
     return result
+
