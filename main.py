@@ -1,11 +1,22 @@
 from fastapi import FastAPI
 from routing import routing_room
 from config import database
+from fastapi.middleware.cors import CORSMiddleware
 
 collection = database.client["exceed06"]["smart_home"]
 
 app = FastAPI()
 app.include_router(routing_room.router)
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/")
