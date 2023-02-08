@@ -7,7 +7,7 @@ collection = database.client["exceed06"]["smart_home"]
 
 @router.post("/manual/turn_on/{id}")
 def turn_on_manually(id: int):
-    # Change manual in the database of that room to On.
+    """Set status of bulb with given id to True."""
     if not 1 <= id <= 3:
         raise HTTPException(status_code=406, detail="id is out of range")
     collection.update_one(
@@ -20,7 +20,7 @@ def turn_on_manually(id: int):
 
 @router.post("/manual/turn_off/{id}")
 def turn_off_manually(id: int):
-    # Change manual in the database of that room to Off.
+    """Set status of bulb with given id to False."""
     if not 1 <= id <= 3:
         raise HTTPException(status_code=406, detail="id is out of range")
     collection.update_one(
@@ -33,7 +33,7 @@ def turn_off_manually(id: int):
 
 @router.post("/change_mode/{id}/{mode}/")
 def change_mode(id: int, mode: str):
-    # disables Manual button and change Auto in the database of that room to On.
+    """Set Mode of bulb with that id to the given mode ('auto'/ 'manual')."""
     if not 1 <= id <= 3:
         raise HTTPException(status_code=406, detail="id is out of range")
     elif mode not in ["auto", "manual"]:
@@ -44,6 +44,7 @@ def change_mode(id: int, mode: str):
 
 @router.post("/change_brightness/{id}/{brightness}/")
 def change_brightness(id: int, brightness: int):
+    """Set brightness of bulb with that id to the given brightness."""
     if not 1 <= id <= 3:
         raise HTTPException(status_code=406, detail="id is out of range")
     elif not 0 <= brightness <= 255:
@@ -54,7 +55,7 @@ def change_brightness(id: int, brightness: int):
 
 @router.get("/get_all_bulbs_info/")
 def get_all_bulbs_info():
-    # get all bulbs info
+    """Return information about all light bulbs."""
     result = {}
     for i in collection.find({}, {"_id": False}):
         result["room_" + str(i["id"])] = i
@@ -63,6 +64,7 @@ def get_all_bulbs_info():
 
 @router.get("/bulb_info/{id}")
 def bulb_info(id: int):
+    """Return information about bulb with given id."""
     if not 1 <= id <= 3:
         raise HTTPException(status_code=406, detail="id is out of range")
     return collection.find_one({"id": id}, {"_id": 0})
