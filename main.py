@@ -1,12 +1,11 @@
 from fastapi import FastAPI
-
-# from router import room_routing
+from routing import routing_room
 from config import database
 
 collection = database.client["exceed06"]["smart_home"]
 
 app = FastAPI()
-# app.include_router(room_routing.router)
+app.include_router(routing_room.router)
 
 
 @app.get("/")
