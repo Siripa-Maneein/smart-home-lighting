@@ -30,9 +30,12 @@ def change_brightness(id: int, brightness: int):
 
 @router.get("/get_all_bulb_info/")
 def get_all_bulbs_info():
-    result = []
+    result = {}
     for i in collection.find({}, {"_id": False}):
-        result.append(i)
-    return {
-        "result": result
-    }
+        result[i['id']] = {
+            "room": result[i['room']],
+            "brightness": result[i['brightness']],
+            "status": result[i['status']],
+            "mode": result[i['mode']],
+        }
+    return result
