@@ -40,7 +40,7 @@ def change_brightness(id: int, brightness: int):
     return collection.find_one({"id": id}, {"_id": 0})
 
 
-@router.get("/get_all_bulb_info/")
+@router.get("/get_all_bulbs_info/")
 def get_all_bulbs_info():
     # get all bulbs info
     result = {}
