@@ -10,3 +10,5 @@ _password = urllib.parse.quote(os.getenv("password"))
 client = MongoClient(
     "mongo.exceed19.online", port=8443, username=_username, password=_password
 )
+
+# client = MongoClient("localhost", port=27017)

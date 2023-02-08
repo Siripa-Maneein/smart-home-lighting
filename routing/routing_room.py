@@ -60,6 +60,9 @@ def get_all_bulbs_info():
         result["room_" + str(i["id"])] = i
     return result
 
+@router.get("/get_info/")
+def get_info():
+    return list(collection.find({},{"_id":False}))
 
 @router.get("/bulb_info/{id}")
 def bulb_info(id: int):
