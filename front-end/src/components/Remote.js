@@ -3,8 +3,10 @@
 // import "../App.css ";
 import React, { useState } from "react";
 import "./Remote.css";
+
 import axios from "axios";
 import { useEffect } from "react";
+// const Remote = (room_name,brightness,status,mode) => {
 
 const Remote = () => {
 const sim = {
@@ -29,7 +31,7 @@ const sim = {
   };
 
   const GetData = async () => {
-    const baseURL = "192.168.136.167:8000";
+    const baseURL = "http://127.0.0.1:8000/room/get_info/";
     try {
       const response = await axios.get(baseURL);
       console.log(response.data);
@@ -38,6 +40,8 @@ const sim = {
       return null;
     }
   };
+
+
   const [data, setData] = useState({});
   const [open, setOpen] = useState(false);
   const [room, setRoom] = useState("name");
@@ -54,6 +58,8 @@ const sim = {
       console.log(data_);
     
       setData(data_);
+
+
       setOpen(data.status);
       setRoom(data.name);
       setMode(data.mode);
